@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Произведение со сдвигом</title>
+  <script src="file.js"></script>
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+	<div><b>Произведение пары 4х разрядных чисел умножением с младших разрядов со двигом частной суммы вправо</b></div>
+	<input id="FirstElem" placeholder="Введите первые элементы пар"/> <br>
+	<input id="SecondElem" placeholder="Введите вторые элементы пар"/> <br>
+	<input id="Time" placeholder="Введите время обработки одного этапа"/> <br>
+	<button id="Build" onclick='readInput();'>Построить </button>
+	<button id="Reset" onclick='removeTable();'>Сбросить</button> <br>
+	<div id="Help"></div>
+	<table id='Table' border='1'>
+	</table>
+
+</body>
+
+</html>	
