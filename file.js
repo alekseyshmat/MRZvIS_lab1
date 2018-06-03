@@ -14,7 +14,8 @@ var sumArr = [];
 var lengthBinNumber = 4;
 var bit;
 var summ;
-var c;
+var firstSumm;
+var summS;
 
 function message(messageString) {
     document.getElementById('Help').innerHTML = "<b>" + messageString + "<b>";
@@ -30,7 +31,7 @@ function addZero(binString) {
         binString = "0" + binString;
     return binString;
 }
-//дополнение частичного произведения до 8-разрядного
+
 function addBack(binString, needNumber) {
     for (var i = 0; i < needNumber; i++)
         binString = binString + "0";
@@ -44,23 +45,26 @@ function addTop(binString, needNumber) {
     return binString;
 }
 
-function addBackNum(binString, needNumber) {
-    var kol = needNumber - binString.length;
-    for (var i = 0; i < kol; i++)
-        binString = binString + "0";
-    return binString;
+function countBit(first, counter) {
+	bit = addZero(secondElemArr[counter].toString(2))[addZero(secondElemArr[counter].toString(2)).length - first - 1];
+	return bit;
 }
 
-function summa(needNumber, numberC, k) {
-    c = (parseInt(sumArr[k], 2) + parseInt(addBack(firstElemArr[k].toString(2), numberC), 2) * bit).toString(2);
-    summ = addTop(addBack(c, needNumber), lengthBinNumber * 2);
+function proizvAndSumm(arr, numberC, k){
+	    firstSumm = (parseInt(arr[k], 2) + parseInt(addBack(firstElemArr[k].toString(2), numberC), 2) * countBit(numberC,k)).toString(2);
+	    return firstSumm;
+}
+
+function summa(numberC, k) {
+    summ = addTop(addBack(proizvAndSumm(sumArr, numberC, k), lengthBinNumber - numberC), lengthBinNumber*2);
     return summ;
 }
 
-function countBit(numberC, k) {
-	bit = addZero(secondElemArr[k].toString(2))[addZero(secondElemArr[k].toString(2)).length - numberC - 1];
-	return bit;
+function summaSh(arr, numberC, k) {
+	summS = addTop(addBack(arr[k],  lengthBinNumber - numberC), lengthBinNumber*2);
+	return summS;
 }
+
 
 function readInput() {
     removeTable();
@@ -140,7 +144,7 @@ function buildTable() {
     var or, oc, k;
     for (var i = 0; i <= Length + stageNumber - 1; i++) {
         var time = timeInt * i;
-        var needNumber = lengthBinNumber - numberC;
+        var needNumber1 = lengthBinNumber - numberC;
         or = ot.insertRow(-1);
         if (i == 0) {
             oc = or.insertCell(-1);
@@ -174,16 +178,18 @@ function buildTable() {
                     for (var k = 0; k < Length; k++)
                         if (stageArr[k] == j)
                             if (j % 2 != 0) {
-                     			oc.innerHTML = "A: " + addZero(firstElemArr[k].toString(2)) + "</br>" +
-                                		       "B<sub>" + numberC + "</sub>:" + countBit(numberC, k) + "</br>" +
-                                     		   "Сумма:  " + summa(needNumber, numberC, k) + "</br>" +
-                                   			   "Время: " + time + "</br>";
-                                sumArr[k] = c;
-                            }
+                     			oc.innerHTML = 	"A: " + addZero(firstElemArr[k].toString(2)) + "</br>" + 
+				        							"B<sub>" + numberC + "</sub>:" + countBit(numberC, k) + "</br>" + 
+				        							"Сумма1:  " + proizvAndSumm(sumArr, numberC, k) + "</br>" +
+				           							"Сумма:  " + summa(numberC, k) + "</br>" +
+				        							"Время: " + time + "</br>";
+				        							sumArr[k] = proizvAndSumm(sumArr, numberC, k);
+
+		        			}
                             else {
-                                oc.innerHTML = "Сумма:  " + summa(needNumber, numberC,k) + "</br>" +
-                                "Время: " + time + "</br>";
-                            }
+                              oc.innerHTML = 	"Сумма:  " + summaSh(sumArr, numberC, k) + "</br>" +
+                               					 "Время: " + time + "</br>"+;
+                                }
                 }
             }
             for (var k = 0; k < Length; k++)
