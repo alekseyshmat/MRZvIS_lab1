@@ -50,6 +50,7 @@ function countBit(first, counter) {
 	return bit;
 }
 
+
 function proizvAndSumm(arr, numberC, k){
 	    firstSumm = (parseInt(arr[k], 2) + parseInt(addBack(firstElemArr[k].toString(2), numberC), 2) * countBit(numberC,k)).toString(2);
 	    return firstSumm;
@@ -180,15 +181,13 @@ function buildTable() {
                             if (j % 2 != 0) {
                      			oc.innerHTML = 	"A: " + addZero(firstElemArr[k].toString(2)) + "</br>" + 
 				        							"B<sub>" + numberC + "</sub>:" + countBit(numberC, k) + "</br>" + 
-				        							"Сумма1:  " + proizvAndSumm(sumArr, numberC, k) + "</br>" +
 				           							"Сумма:  " + summa(numberC, k) + "</br>" +
 				        							"Время: " + time + "</br>";
 				        							sumArr[k] = proizvAndSumm(sumArr, numberC, k);
-
 		        			}
                             else {
                               oc.innerHTML = 	"Сумма:  " + summaSh(sumArr, numberC, k) + "</br>" +
-                               					 "Время: " + time + "</br>"+;
+                               					 "Время: " + time + "</br>";
                                 }
                 }
             }
